@@ -1,0 +1,16 @@
+[
+	{
+		"id": 1,
+		"departure": "Warszawa",
+		"destination": "Dublin",
+		"price": 300,
+		"seatsAvailable": 5
+	},
+	{
+		"id": 2,
+		"departure": "Kraków",
+		"destination": "Barcelona",
+		"price": 350,
+		"seatsAvailable": 3
+	}
+]

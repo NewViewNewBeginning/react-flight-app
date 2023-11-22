@@ -1,0 +1,102 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+}
+
+:root {
+	--text: #242f36;
+	--bg-main: rgba(186, 228, 252, 0.9);
+	--cta: #ffad00;
+}
+
+#root {
+	height: 100vh;
+	width: 100vw;
+	background: url(assets/flight-bg-mobile.png) no-repeat center center/cover;
+	color: var(--text);
+}
+
+h1 {
+	text-align: center;
+	font-size: clamp(2rem, 2vw + 1rem, 3.5rem);
+}
+
+.app {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+form,
+.half-form {
+	display: flex;
+	flex-direction: column;
+}
+
+form label {
+	display: inline-block;
+	background-color: var(--bg-main);
+
+	padding: 0.5rem;
+}
+.last-input {
+	margin-top: 1rem;
+}
+.half-form {
+	justify-content: center;
+	max-width: 40rem;
+	gap: 1rem;
+}
+.half-form:first-child {
+	margin-bottom: 1rem;
+}
+.half-form div input {
+	width: 100%;
+	height: 2rem;
+	outline: none;
+	border: none;
+}
+select {
+	width: 100%;
+	height: 2rem;
+}
+button {
+	height: 2rem;
+	background-color: var(--bg-main);
+	outline: none;
+	border: none;
+	margin: 1rem 0;
+}
+button:hover {
+	cursor: pointer;
+	background-color: var(--cta);
+	color: var(--bg-main);
+}
+
+header,
+footer {
+	text-align: center;
+	width: 100%;
+	padding: 1.5rem;
+}
+
+footer {
+	background-color: var(--bg-main);
+}
+
+@media only screen and (min-width: 686px) {
+	#root {
+		background-image: url(assets/flight-bg.png);
+	}
+	.half-form {
+		flex-direction: row;
+	}
+	.half-form div {
+		width: 100%;
+	}
+}
