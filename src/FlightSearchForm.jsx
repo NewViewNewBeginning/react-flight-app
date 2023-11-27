@@ -1,97 +1,130 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const FlightSearchForm = ({ onSearch, updateDestinations }) => {
-	const [formData, setFormData] = useState({
-		departure: "",
-		destination: "",
-		date: "",
-		passengers: 1,
-		ticketType: "one-way",
-	});
+const FlightSearchForm = () => {
+	// Define state for each form input
+	const [from, setFrom] = useState("");
+	const [to, setTo] = useState("");
+	const [tripType, setTripType] = useState("one-way");
+	const [departureDate, setDepartureDate] = useState("");
+	const [returnDate, setReturnDate] = useState("");
+	const [adults, setAdults] = useState(1);
+	const [children, setChildren] = useState(0);
+	const [error, setError] = useState(""); // State for error message
 
-	useEffect(() => {
-		updateDestinations(formData.departure);
-	}, [formData.departure]);
+	// Predefined list of airports
+	const airports = [
+		"Dublin",
+		"Cork",
+		"Shannon",
+		"Madrid",
+		"Barcelona",
+		"Nice",
+		"Rome",
+	];
 
-	const [errorMessage, setErrorMessage] = useState("");
-
-	const handleChange = e => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
-
-	const handleSubmit = e => {
-		e.preventDefault();
-
-		if (!formData.departure || !formData.destination || !formData.date) {
-			setErrorMessage("Please fill out all fields.");
+	// Handler for form submission
+	const handleSearch = event => {
+		event.preventDefault();
+		// Validate inputs
+		if (
+			!from ||
+			!to ||
+			!departureDate ||
+			(tripType === "return" && !returnDate)
+		) {
+			setError("Please fill in all required fields.");
 			return;
 		}
-		setErrorMessage("");
-		onSearch(formData);
+
+		// Clear error message upon successful validation
+		setError("");
+		// TODO: Implement search functionality
+		console.log({
+			from,
+			to,
+			tripType,
+			departureDate,
+			returnDate,
+			adults,
+			children,
+		});
+	};
+	// Get airports for the 'To' dropdown excluding the selected 'From' airport
+	const getToAirports = () => {
+		return airports.filter(airport => airport !== from);
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className='half-form'>
-				<div>
-					<label htmlFor='departure'>Flight From:</label>
-					<input
-						type='text'
-						id='departure'
-						name='departure'
-						placeholder='City name or airport code'
-						value={formData.departure}
-						onChange={handleChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor='destination'>Destination:</label>
-					<input
-						type='text'
-						id='destination'
-						name='destination'
-						placeholder='City name or airport code'
-						value={formData.destination}
-						onChange={handleChange}
-					/>
-				</div>
-			</div>
-			<div className='half-form'>
-				<div>
-					<label htmlFor='date'>Date:</label>
-					<input
-						type='date'
-						id='date'
-						name='date'
-						value={formData.date}
-						onChange={handleChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor='passengers'>No. of passengers</label>
-					<input
-						type='number'
-						id='passengers'
-						name='passengers'
-						min='1'
-						value={formData.passengers}
-						onChange={handleChange}
-					/>
-				</div>
-			</div>
-			<div className='last-input'>
-				<label htmlFor='ticketType'>One way / Return</label>
-				<select
-					id='ticketType'
-					name='ticketType'
-					value={formData.ticketType}
-					onChange={handleChange}>
-					<option value='one-way'>One Way</option>
+		<form onSubmit={handleSearch}>
+			{error && <div className='error-message'>{error}</div>}
+			<label>
+				From:
+				<select value={from} onChange={e => setFrom(e.target.value)}>
+					<option value=''>Select Airport</option>
+					{airports.map(airport => (
+						<option key={airport} value={airport}>
+							{airport}
+						</option>
+					))}
+				</select>
+			</label>
+			<label>
+				To:
+				<select value={to} onChange={e => setTo(e.target.value)}>
+					<option value=''>Select Airport</option>
+					{getToAirports().map(airport => (
+						<option key={airport} value={airport}>
+							{airport}
+						</option>
+					))}
+				</select>
+			</label>
+			<label>
+				Trip Type:
+				<select value={tripType} onChange={e => setTripType(e.target.value)}>
+					<option value='one-way'>One-way</option>
 					<option value='return'>Return</option>
 				</select>
-			</div>
-			<button type='submit'>Search Flights</button>
-			{errorMessage && <div className='error-message'>{errorMessage}</div>}
+			</label>
+			<label>
+				Departure Date:
+				<input
+					type='date'
+					value={departureDate}
+					onChange={e => setDepartureDate(e.target.value)}
+				/>
+			</label>
+			{tripType === "return" && (
+				<label>
+					Return Date:
+					<input
+						type='date'
+						value={returnDate}
+						onChange={e => setReturnDate(e.target.value)}
+					/>
+				</label>
+			)}
+			<label>
+				Adults:
+				<input
+					type='number'
+					min='1'
+					max='9'
+					value={adults}
+					onChange={e => setAdults(Number(e.target.value))}
+				/>
+			</label>
+			<label>
+				Children:
+				<input
+					type='number'
+					min='0'
+					max='9'
+					value={children}
+					onChange={e => setChildren(Number(e.target.value))}
+				/>
+			</label>
+			<button type='submit'>Search</button>
 		</form>
 	);
 };
