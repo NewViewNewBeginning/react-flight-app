@@ -1,4 +1,4 @@
-const airports = [
+export const airports = [
 	{ name: "Dublin", iata: "DUB", country: "Ireland" },
 	{ name: "Cork", iata: "ORK", country: "Ireland" },
 	{ name: "Shannon", iata: "SNN", country: "Ireland" },
@@ -26,7 +26,7 @@ const airports = [
 	{ name: "The Hague", iata: "HAG", country: "Netherlands" },
 ];
 
-const flightSchedules = [
+export const flightSchedules = [
 	{ from: "DUB", to: "MAD", days: [1, 3, 5], basePrice: 90 },
 	{ from: "DUB", to: "BCN", days: [0, 2, 4], basePrice: 85 },
 	{ from: "DUB", to: "AGP", days: [1, 4, 6], basePrice: 75 },
@@ -60,29 +60,3 @@ const flightSchedules = [
 	{ from: "SNN", to: "FNC", days: [2, 5], basePrice: 98 },
 	{ from: "SNN", to: "PDL", days: [1, 3, 6], basePrice: 115 },
 ];
-
-const flightSchedules = [
-	// ... add your flight schedules here ...
-];
-
-const basePrices = [
-	// ... add your base prices here ...
-];
-
-export const findNextAvailableDay = (availableDays, currentDate) => {
-	// Logic to find the next available day
-};
-
-export const calculatePrice = (from, to, adults, children) => {
-	// Logic to calculate the price
-};
-
-export const checkFlightAvailability = (from, to, departureDate) => {
-	// Logic to check if the flight is available on the selected date
-};
-
-export const getNextAvailableFlight = (from, to, departureDate) => {
-	// Logic to get the next available flight if the selected one is not available
-};
-
-// ... any other utility functions or data manipulations needed for the flight service ...

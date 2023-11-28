@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { airports, flightSchedules } from "./FlightDataServices";
 
 const FlightSearchForm = () => {
 	// Define state for each form input
@@ -10,35 +11,6 @@ const FlightSearchForm = () => {
 	const [adults, setAdults] = useState(1);
 	const [children, setChildren] = useState(0);
 	const [error, setError] = useState(""); // State for error message
-
-	// Predefined list of airports
-	const airports = [
-		{ name: "Dublin", iata: "DUB", country: "Ireland" },
-		{ name: "Cork", iata: "ORK", country: "Ireland" },
-		{ name: "Shannon", iata: "SNN", country: "Ireland" },
-		{ name: "Madrid", iata: "MAD", country: "Spain" },
-		{ name: "Barcelona", iata: "BCN", country: "Spain" },
-		{ name: "Malaga", iata: "AGP", country: "Spain" },
-		{ name: "Alicante", iata: "ALC", country: "Spain" },
-		{ name: "Palma", iata: "PMI", country: "Spain" },
-		{ name: "Paris", iata: "CDG", country: "France" },
-		{ name: "Nice", iata: "NCE", country: "France" },
-		{ name: "Lyon", iata: "LYS", country: "France" },
-		{ name: "Marseille", iata: "MRS", country: "France" },
-		{ name: "Toulouse", iata: "TLS", country: "France" },
-		{ name: "Bordeaux", iata: "BOD", country: "France" },
-		{ name: "Nantes", iata: "NTE", country: "France" },
-		{ name: "Lille", iata: "LIL", country: "France" },
-		{ name: "Strasbourg", iata: "SXB", country: "France" },
-		{ name: "Lisbon", iata: "LIS", country: "Portugal" },
-		{ name: "Porto", iata: "OPO", country: "Portugal" },
-		{ name: "Faro", iata: "FAO", country: "Portugal" },
-		{ name: "Funchal", iata: "FNC", country: "Portugal" },
-		{ name: "Ponta Delgada", iata: "PDL", country: "Portugal" },
-		{ name: "Amsterdam", iata: "AMS", country: "Netherlands" },
-		{ name: "Rotterdam", iata: "RTM", country: "Netherlands" },
-		{ name: "The Hague", iata: "HAG", country: "Netherlands" },
-	];
 
 	// Handler for form submission
 	const handleSearch = event => {
@@ -67,20 +39,24 @@ const FlightSearchForm = () => {
 			children,
 		});
 	};
+	// Function to get 'From' airports - only those in Ireland
+	const getFromAirports = () => {
+		return airports.filter(airport => airport.country === "Ireland");
+	};
+
 	// Get airports for the 'To' dropdown excluding the selected 'From' airport
 	const getToAirports = () => {
-		if (!from) return airports; // Return all airports if 'From' is not selected
+		if (!from) return []; // If 'From' is not selected, return an empty array
 
-		const fromAirport = airports.find(airport => airport.iata === from);
-		if (!fromAirport) return airports; // Return all airports if 'From' airport is not found
+		// Find all flight schedules from the selected 'From' airport
+		const availableDestinations = flightSchedules
+			.filter(schedule => schedule.from === from)
+			.map(schedule => schedule.to);
 
-		return airports.filter(airport => {
-			// Exclude the selected 'From' airport and any Irish airports if 'From' is in Ireland
-			return (
-				airport.iata !== from &&
-				(fromAirport.country !== "Ireland" || airport.country !== "Ireland")
-			);
-		});
+		// Return airports that match the available destinations
+		return airports.filter(airport =>
+			availableDestinations.includes(airport.iata)
+		);
 	};
 
 	return (
@@ -90,7 +66,7 @@ const FlightSearchForm = () => {
 				From:
 				<select value={from} onChange={e => setFrom(e.target.value)}>
 					<option value=''>Select Airport</option>
-					{airports.map(airport => (
+					{getFromAirports().map(airport => (
 						<option key={airport.iata} value={airport.iata}>
 							{airport.name}
 						</option>
@@ -99,7 +75,10 @@ const FlightSearchForm = () => {
 			</label>
 			<label>
 				To:
-				<select value={to} onChange={e => setTo(e.target.value)}>
+				<select
+					value={to}
+					onChange={e => setTo(e.target.value)}
+					disabled={!from}>
 					<option value=''>Select Airport</option>
 					{getToAirports().map(airport => (
 						<option key={airport.iata} value={airport.iata}>
@@ -130,6 +109,8 @@ const FlightSearchForm = () => {
 						type='date'
 						value={returnDate}
 						onChange={e => setReturnDate(e.target.value)}
+						min={departureDate} // The return date cannot be before the departure date
+						disabled={tripType !== "return"} // Disable if it's not a return trip
 					/>
 				</label>
 			)}
