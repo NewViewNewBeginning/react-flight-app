@@ -27,7 +27,7 @@ export const airports = [
 ];
 
 export const flightSchedules = [
-	{ from: "DUB", to: "MAD", days: [1, 3, 5], basePrice: 90 },
+	{ from: "DUB", to: "MAD", days: [0, 1, 2, 3, 4, 5, 6], basePrice: 90 },
 	{ from: "DUB", to: "BCN", days: [0, 2, 4], basePrice: 85 },
 	{ from: "DUB", to: "AGP", days: [1, 4, 6], basePrice: 75 },
 	{ from: "DUB", to: "ALC", days: [2, 5], basePrice: 70 },

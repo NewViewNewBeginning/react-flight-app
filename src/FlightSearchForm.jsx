@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { airports, flightSchedules } from "./FlightDataServices";
 
 const FlightSearchForm = () => {
-	// Define state for each form input
 	const [from, setFrom] = useState("");
 	const [to, setTo] = useState("");
 	const [tripType, setTripType] = useState("one-way");
@@ -10,12 +9,29 @@ const FlightSearchForm = () => {
 	const [returnDate, setReturnDate] = useState("");
 	const [adults, setAdults] = useState(1);
 	const [children, setChildren] = useState(0);
-	const [error, setError] = useState(""); // State for error message
+	const [error, setError] = useState("");
 
-	// Handler for form submission
+	// Function to get 'From' airports - only those in Ireland
+	const getFromAirports = () => {
+		return airports.filter(airport => airport.country === "Ireland");
+	};
+
+	// Function to get 'To' airports based on the selected 'From' airport and its connections
+	const getToAirports = () => {
+		if (!from) return [];
+
+		const availableDestinations = flightSchedules
+			.filter(schedule => schedule.from === from)
+			.map(schedule => schedule.to);
+
+		return airports.filter(airport =>
+			availableDestinations.includes(airport.iata)
+		);
+	};
+
 	const handleSearch = event => {
 		event.preventDefault();
-		// Validate inputs
+
 		if (
 			!from ||
 			!to ||
@@ -26,37 +42,63 @@ const FlightSearchForm = () => {
 			return;
 		}
 
-		// Clear error message upon successful validation
-		setError("");
-		// TODO: Implement search functionality
-		console.log({
-			from,
-			to,
-			tripType,
-			departureDate,
-			returnDate,
-			adults,
-			children,
-		});
-	};
-	// Function to get 'From' airports - only those in Ireland
-	const getFromAirports = () => {
-		return airports.filter(airport => airport.country === "Ireland");
-	};
+		const schedule = flightSchedules.find(s => s.from === from && s.to === to);
+		if (!schedule) {
+			setError("There is no flight schedule for the selected route.");
+			return;
+		}
 
-	// Get airports for the 'To' dropdown excluding the selected 'From' airport
-	const getToAirports = () => {
-		if (!from) return []; // If 'From' is not selected, return an empty array
+		if (!isDateAvailable(departureDate, schedule.days)) {
+			setError("The selected departure date is not available for this route.");
+			return;
+		}
 
-		// Find all flight schedules from the selected 'From' airport
-		const availableDestinations = flightSchedules
-			.filter(schedule => schedule.from === from)
-			.map(schedule => schedule.to);
+		if (tripType === "return" && !isDateAvailable(returnDate, schedule.days)) {
+			setError("The selected return date is not available for this route.");
+			return;
+		}
 
-		// Return airports that match the available destinations
-		return airports.filter(airport =>
-			availableDestinations.includes(airport.iata)
+		const numAdults = Number(adults);
+		const numChildren = Number(children);
+
+		if (isNaN(numAdults) || isNaN(numChildren)) {
+			setError("The number of adults or children is invalid.");
+			return;
+		}
+
+		const totalPrice = calculateTotalPrice(
+			schedule,
+			numAdults,
+			numChildren,
+			tripType
 		);
+		console.log(`Total price for the flight(s): ${totalPrice}`);
+		setError(""); // Clear any previous errors.
+		// Here you would typically update your component state to show the result.
+	};
+
+	const isDateAvailable = (date, availableDays) => {
+		const dayOfWeek = new Date(date).getDay();
+		return availableDays.includes(dayOfWeek);
+	};
+
+	const calculateTotalPrice = (schedule, adults, children, tripType) => {
+		if (!schedule || isNaN(schedule.basePrice)) {
+			console.error("Invalid schedule or basePrice.");
+			return 0; // Return 0 or some error code that indicates the price couldn't be calculated.
+		}
+
+		const childrenDiscount = 0.2; // Assuming a 20% discount for children
+		const adultPrice = schedule.basePrice * adults;
+		const childrenPrice =
+			schedule.basePrice * children * (1 - childrenDiscount);
+		let totalPrice = adultPrice + childrenPrice;
+
+		if (tripType === "return") {
+			totalPrice *= 2;
+		}
+
+		return totalPrice;
 	};
 
 	return (
@@ -109,8 +151,8 @@ const FlightSearchForm = () => {
 						type='date'
 						value={returnDate}
 						onChange={e => setReturnDate(e.target.value)}
-						min={departureDate} // The return date cannot be before the departure date
-						disabled={tripType !== "return"} // Disable if it's not a return trip
+						min={departureDate}
+						disabled={tripType !== "return"}
 					/>
 				</label>
 			)}
