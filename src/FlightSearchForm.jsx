@@ -10,6 +10,7 @@ const FlightSearchForm = () => {
 	const [adults, setAdults] = useState(1);
 	const [children, setChildren] = useState(0);
 	const [error, setError] = useState("");
+	const [flightDetails, setFlightDetails] = useState(null);
 
 	// Function to get 'From' airports - only those in Ireland
 	const getFromAirports = () => {
@@ -75,6 +76,20 @@ const FlightSearchForm = () => {
 		console.log(`Total price for the flight(s): ${totalPrice}`);
 		setError(""); // Clear any previous errors.
 		// Here you would typically update your component state to show the result.
+		const flightInfo = {
+			from: from,
+			to: to,
+			tripType: tripType,
+			departureDate: departureDate,
+			returnDate: tripType === "return" ? returnDate : null,
+			adults: numAdults,
+			children: numChildren,
+			totalPrice: totalPrice,
+			// Add any additional details you want to display
+		};
+
+		// Update the state with the flight details
+		setFlightDetails(flightInfo);
 	};
 
 	const isDateAvailable = (date, availableDays) => {
@@ -102,82 +117,100 @@ const FlightSearchForm = () => {
 	};
 
 	return (
-		<form onSubmit={handleSearch}>
-			{error && <div className='error-message'>{error}</div>}
-			<label>
-				From:
-				<select value={from} onChange={e => setFrom(e.target.value)}>
-					<option value=''>Select Airport</option>
-					{getFromAirports().map(airport => (
-						<option key={airport.iata} value={airport.iata}>
-							{airport.name}
-						</option>
-					))}
-				</select>
-			</label>
-			<label>
-				To:
-				<select
-					value={to}
-					onChange={e => setTo(e.target.value)}
-					disabled={!from}>
-					<option value=''>Select Airport</option>
-					{getToAirports().map(airport => (
-						<option key={airport.iata} value={airport.iata}>
-							{airport.name}
-						</option>
-					))}
-				</select>
-			</label>
-			<label>
-				Trip Type:
-				<select value={tripType} onChange={e => setTripType(e.target.value)}>
-					<option value='one-way'>One-way</option>
-					<option value='return'>Return</option>
-				</select>
-			</label>
-			<label>
-				Departure Date:
-				<input
-					type='date'
-					value={departureDate}
-					onChange={e => setDepartureDate(e.target.value)}
-				/>
-			</label>
-			{tripType === "return" && (
+		<>
+			<form onSubmit={handleSearch}>
+				{error && <div className='error-message'>{error}</div>}
 				<label>
-					Return Date:
+					From:
+					<select value={from} onChange={e => setFrom(e.target.value)}>
+						<option value=''>Select Airport</option>
+						{getFromAirports().map(airport => (
+							<option key={airport.iata} value={airport.iata}>
+								{airport.name}
+							</option>
+						))}
+					</select>
+				</label>
+				<label>
+					To:
+					<select
+						value={to}
+						onChange={e => setTo(e.target.value)}
+						disabled={!from}>
+						<option value=''>Select Airport</option>
+						{getToAirports().map(airport => (
+							<option key={airport.iata} value={airport.iata}>
+								{airport.name}
+							</option>
+						))}
+					</select>
+				</label>
+				<label>
+					Trip Type:
+					<select value={tripType} onChange={e => setTripType(e.target.value)}>
+						<option value='one-way'>One-way</option>
+						<option value='return'>Return</option>
+					</select>
+				</label>
+				<label>
+					Departure Date:
 					<input
 						type='date'
-						value={returnDate}
-						onChange={e => setReturnDate(e.target.value)}
-						min={departureDate}
-						disabled={tripType !== "return"}
+						value={departureDate}
+						onChange={e => setDepartureDate(e.target.value)}
 					/>
 				</label>
+				{tripType === "return" && (
+					<label>
+						Return Date:
+						<input
+							type='date'
+							value={returnDate}
+							onChange={e => setReturnDate(e.target.value)}
+							min={departureDate}
+							disabled={tripType !== "return"}
+						/>
+					</label>
+				)}
+				<label>
+					Adults:
+					<input
+						type='number'
+						min='1'
+						max='9'
+						value={adults}
+						onChange={e => setAdults(Number(e.target.value))}
+					/>
+				</label>
+				<label>
+					Children:
+					<input
+						type='number'
+						min='0'
+						max='9'
+						value={children}
+						onChange={e => setChildren(Number(e.target.value))}
+					/>
+				</label>
+				<button type='submit'>Search</button>
+			</form>
+			{flightDetails && (
+				<div className='flight-details'>
+					<h2>Flight Details</h2>
+					<p>From: {airports.find(a => a.iata === flightDetails.from).name}</p>
+					<p>To: {airports.find(a => a.iata === flightDetails.to).name}</p>
+					<p>Trip Type: {flightDetails.tripType}</p>
+					<p>Departure Date: {flightDetails.departureDate}</p>
+					{flightDetails.returnDate && (
+						<p>Return Date: {flightDetails.returnDate}</p>
+					)}
+					<p>Passengers: {flightDetails.adults + flightDetails.children}</p>
+					<p>Adults: {flightDetails.adults}</p>
+					<p>Children: {flightDetails.children}</p>
+					<p>Total Price: ${flightDetails.totalPrice}</p>
+				</div>
 			)}
-			<label>
-				Adults:
-				<input
-					type='number'
-					min='1'
-					max='9'
-					value={adults}
-					onChange={e => setAdults(Number(e.target.value))}
-				/>
-			</label>
-			<label>
-				Children:
-				<input
-					type='number'
-					min='0'
-					max='9'
-					value={children}
-					onChange={e => setChildren(Number(e.target.value))}
-				/>
-			</label>
-			<button type='submit'>Search</button>
-		</form>
+		</>
 	);
 };
 
