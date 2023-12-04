@@ -122,7 +122,13 @@ const FlightSearchForm = () => {
 				{error && <div className='error-message'>{error}</div>}
 				<label>
 					From:
-					<select value={from} onChange={e => setFrom(e.target.value)}>
+					<select
+						value={from}
+						onChange={e => {
+							setFrom(e.target.value);
+							setFlightDetails(null);
+							setError("");
+						}}>
 						<option value=''>Select Airport</option>
 						{getFromAirports().map(airport => (
 							<option key={airport.iata} value={airport.iata}>
@@ -135,7 +141,11 @@ const FlightSearchForm = () => {
 					To:
 					<select
 						value={to}
-						onChange={e => setTo(e.target.value)}
+						onChange={e => {
+							setTo(e.target.value);
+							setFlightDetails(null);
+							setError("");
+						}}
 						disabled={!from}>
 						<option value=''>Select Airport</option>
 						{getToAirports().map(airport => (
@@ -147,7 +157,13 @@ const FlightSearchForm = () => {
 				</label>
 				<label>
 					Trip Type:
-					<select value={tripType} onChange={e => setTripType(e.target.value)}>
+					<select
+						value={tripType}
+						onChange={e => {
+							setTripType(e.target.value);
+							setFlightDetails(null);
+							setError("");
+						}}>
 						<option value='one-way'>One-way</option>
 						<option value='return'>Return</option>
 					</select>
@@ -157,7 +173,11 @@ const FlightSearchForm = () => {
 					<input
 						type='date'
 						value={departureDate}
-						onChange={e => setDepartureDate(e.target.value)}
+						onChange={e => {
+							setDepartureDate(e.target.value);
+							setFlightDetails(null);
+							setError("");
+						}}
 					/>
 				</label>
 				{tripType === "return" && (
@@ -166,7 +186,11 @@ const FlightSearchForm = () => {
 						<input
 							type='date'
 							value={returnDate}
-							onChange={e => setReturnDate(e.target.value)}
+							onChange={e => {
+								setReturnDate(e.target.value);
+								setFlightDetails(null);
+								setError("");
+							}}
 							min={departureDate}
 							disabled={tripType !== "return"}
 						/>
@@ -179,7 +203,11 @@ const FlightSearchForm = () => {
 						min='1'
 						max='9'
 						value={adults}
-						onChange={e => setAdults(Number(e.target.value))}
+						onChange={e => {
+							setAdults(Number(e.target.value));
+							setFlightDetails(null);
+							setError("");
+						}}
 					/>
 				</label>
 				<label>
@@ -189,7 +217,10 @@ const FlightSearchForm = () => {
 						min='0'
 						max='9'
 						value={children}
-						onChange={e => setChildren(Number(e.target.value))}
+						onChange={e => {
+							setChildren(Number(e.target.value));
+							setFlightDetails(null);
+						}}
 					/>
 				</label>
 				<button type='submit'>Search</button>
