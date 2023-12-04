@@ -31,7 +31,22 @@ h1 {
 	align-items: center;
 	justify-content: space-between;
 }
-
+form,
+.flight-details {
+	width: 90%;
+	background-color: var(--bg-main);
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.flight-details {
+	padding: 0.5rem;
+}
+.flight-details p {
+	margin-top: 0.5rem;
+}
 form,
 .half-form {
 	display: flex;
@@ -40,8 +55,6 @@ form,
 
 form label {
 	display: inline-block;
-	background-color: var(--bg-main);
-
 	padding: 0.5rem;
 }
 .last-input {
@@ -67,10 +80,16 @@ select {
 }
 button {
 	height: 2rem;
-	background-color: var(--bg-main);
+	border: 1px solid var(--bg-main);
+	border-radius: 5px;
 	outline: none;
 	border: none;
-	margin: 1rem 0;
+	margin: 1rem;
+	padding: 0.5rem;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
 }
 button:hover {
 	cursor: pointer;
@@ -83,6 +102,14 @@ footer {
 	text-align: center;
 	width: 100%;
 	padding: 1.5rem;
+}
+
+.error-message {
+	background-color: var(--bg-main);
+	font-weight: 700;
+	color: red;
+	padding: 0.5rem;
+	font-size: 1.3rem;
 }
 
 footer {
