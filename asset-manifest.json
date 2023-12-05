@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-flight-app/static/css/main.bfdf5be9.css",
-    "main.js": "/react-flight-app/static/js/main.2c790137.js",
+    "main.css": "/react-flight-app/static/css/main.ce5a62bf.css",
+    "main.js": "/react-flight-app/static/js/main.1e82e734.js",
     "static/media/flight-bg.png": "/react-flight-app/static/media/flight-bg.cea7e1a7ac8f5af7da30.png",
     "static/media/flight-bg-mobile.png": "/react-flight-app/static/media/flight-bg-mobile.354caac62bdcc8e89d22.png",
     "index.html": "/react-flight-app/index.html",
-    "main.bfdf5be9.css.map": "/react-flight-app/static/css/main.bfdf5be9.css.map",
-    "main.2c790137.js.map": "/react-flight-app/static/js/main.2c790137.js.map"
+    "main.ce5a62bf.css.map": "/react-flight-app/static/css/main.ce5a62bf.css.map",
+    "main.1e82e734.js.map": "/react-flight-app/static/js/main.1e82e734.js.map"
   },
   "entrypoints": [
-    "static/css/main.bfdf5be9.css",
-    "static/js/main.2c790137.js"
+    "static/css/main.ce5a62bf.css",
+    "static/js/main.1e82e734.js"
   ]
 }
