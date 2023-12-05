@@ -22,29 +22,35 @@ const PersonalDetailsForm = ({ onPurchase }) => {
 		<>
 			<h2>Personal Details</h2>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor='first-name'>First Name</label>
-				<input
-					type='text'
-					id='first-name'
-					value={firstName}
-					onChange={event => setFirstName(event.target.value)}
-				/>
+				<label htmlFor='first-name'>
+					First Name
+					<input
+						type='text'
+						id='first-name'
+						value={firstName}
+						onChange={event => setFirstName(event.target.value)}
+					/>
+				</label>
 
-				<label htmlFor='last-name'>Last Name</label>
-				<input
-					type='text'
-					id='last-name'
-					value={lastName}
-					onChange={event => setLastName(event.target.value)}
-				/>
+				<label htmlFor='last-name'>
+					Last Name
+					<input
+						type='text'
+						id='last-name'
+						value={lastName}
+						onChange={event => setLastName(event.target.value)}
+					/>
+				</label>
 
-				<label htmlFor='email'>Email</label>
-				<input
-					type='email'
-					id='email'
-					value={email}
-					onChange={event => setEmail(event.target.value)}
-				/>
+				<label htmlFor='email'>
+					Email
+					<input
+						type='email'
+						id='email'
+						value={email}
+						onChange={event => setEmail(event.target.value)}
+					/>
+				</label>
 
 				{error && <p className='error'>{error}</p>}
 				<button type='submit'>Buy Now</button>

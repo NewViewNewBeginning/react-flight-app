@@ -23,6 +23,11 @@ h1 {
 	font-size: clamp(2rem, 2vw + 1rem, 3.5rem);
 }
 
+h2 {
+	background-color: var(--bg-main);
+	padding: 1rem;
+}
+
 .app {
 	min-height: 100vh;
 	display: flex;
@@ -34,6 +39,7 @@ form,
 .flight-details,
 .finalMsgCont {
 	width: 90%;
+	max-width: 1200px;
 	background-color: var(--bg-main);
 	display: flex;
 	flex-direction: column;
@@ -47,14 +53,14 @@ form,
 
 form label,
 input {
-	display: inline-block;
 	padding: 0.5rem;
 }
 .last-input {
 	margin-top: 1rem;
 }
 input {
-	margin: 0.5rem;
+	width: 100%;
+	height: 2rem;
 }
 
 .half-form div input {
@@ -62,6 +68,14 @@ input {
 	height: 2rem;
 	outline: none;
 	border: none;
+}
+.half-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.half-form label {
+	width: 100%;
 }
 select {
 	width: 100%;
@@ -98,7 +112,8 @@ footer {
 	padding: 1.5rem 0;
 }
 
-.error-message {
+.error-message,
+.error {
 	background-color: var(--bg-main);
 	font-weight: 700;
 	color: red;
@@ -114,5 +129,11 @@ footer {
 @media only screen and (min-width: 686px) {
 	#root {
 		background-image: url(assets/flight-bg.png);
+	}
+	.half-form {
+		flex-direction: row;
+	}
+	button {
+		max-width: 250px;
 	}
 }
