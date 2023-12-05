@@ -12,7 +12,7 @@
 }
 
 #root {
-	height: 100vh;
+	min-height: 100vh;
 	width: 100vw;
 	background: url(assets/flight-bg-mobile.png) no-repeat center center/cover;
 	color: var(--text);
@@ -24,51 +24,39 @@ h1 {
 }
 
 .app {
-	height: 100vh;
-	width: 100vw;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
 }
 form,
-.flight-details {
+.flight-details,
+.finalMsgCont {
 	width: 90%;
 	background-color: var(--bg-main);
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
+	display: flex;
+	flex-direction: column;
 }
 .flight-details {
 	padding: 0.5rem;
-	margin-bottom: 2rem;
 }
 .flight-details p {
 	margin-top: 0.5rem;
 }
-form,
-.half-form {
-	display: flex;
-	flex-direction: column;
-}
 
-form label {
+form label,
+input {
 	display: inline-block;
 	padding: 0.5rem;
 }
 .last-input {
 	margin-top: 1rem;
 }
-.half-form {
-	justify-content: center;
-	max-width: 40rem;
-	gap: 1rem;
+input {
+	margin: 0.5rem;
 }
-.half-form:first-child {
-	margin-bottom: 1rem;
-}
+
 .half-form div input {
 	width: 100%;
 	height: 2rem;
@@ -80,13 +68,12 @@ select {
 	height: 2rem;
 }
 button {
-	height: 2rem;
-	border: 1px solid var(--bg-main);
-	border-radius: 5px;
-	outline: none;
-	border: none;
-	margin: 1rem;
+	margin: 1rem auto;
+	width: 80%;
+	border: 1px solid var(--cta);
+	font-size: 1.3rem;
 	padding: 0.5rem;
+	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;
@@ -98,11 +85,17 @@ button:hover {
 	color: var(--bg-main);
 }
 
+.finalMsgCont {
+	text-align: center;
+	padding: 2rem;
+	font-size: 1.5rem;
+}
+
 header,
 footer {
 	text-align: center;
 	width: 100%;
-	padding: 1.5rem;
+	padding: 1.5rem 0;
 }
 
 .error-message {
@@ -115,16 +108,11 @@ footer {
 
 footer {
 	background-color: var(--bg-main);
+	margin-top: 2rem;
 }
 
 @media only screen and (min-width: 686px) {
 	#root {
 		background-image: url(assets/flight-bg.png);
-	}
-	.half-form {
-		flex-direction: row;
-	}
-	.half-form div {
-		width: 100%;
 	}
 }

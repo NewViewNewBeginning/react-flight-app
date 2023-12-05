@@ -15,7 +15,6 @@ const PersonalDetailsForm = ({ onPurchase }) => {
 		}
 
 		setError("");
-		alert("Your booking has been confirmed!");
 		onPurchase({ firstName, lastName, email });
 	};
 
@@ -23,33 +22,30 @@ const PersonalDetailsForm = ({ onPurchase }) => {
 		<>
 			<h2>Personal Details</h2>
 			<form onSubmit={handleSubmit}>
-				<div className='form-control'>
-					<label htmlFor='first-name'>First Name</label>
-					<input
-						type='text'
-						id='first-name'
-						value={firstName}
-						onChange={event => setFirstName(event.target.value)}
-					/>
-				</div>
-				<div className='form-control'>
-					<label htmlFor='last-name'>Last Name</label>
-					<input
-						type='text'
-						id='last-name'
-						value={lastName}
-						onChange={event => setLastName(event.target.value)}
-					/>
-				</div>
-				<div className='form-control'>
-					<label htmlFor='email'>Email</label>
-					<input
-						type='email'
-						id='email'
-						value={email}
-						onChange={event => setEmail(event.target.value)}
-					/>
-				</div>
+				<label htmlFor='first-name'>First Name</label>
+				<input
+					type='text'
+					id='first-name'
+					value={firstName}
+					onChange={event => setFirstName(event.target.value)}
+				/>
+
+				<label htmlFor='last-name'>Last Name</label>
+				<input
+					type='text'
+					id='last-name'
+					value={lastName}
+					onChange={event => setLastName(event.target.value)}
+				/>
+
+				<label htmlFor='email'>Email</label>
+				<input
+					type='email'
+					id='email'
+					value={email}
+					onChange={event => setEmail(event.target.value)}
+				/>
+
 				{error && <p className='error'>{error}</p>}
 				<button type='submit'>Buy Now</button>
 			</form>

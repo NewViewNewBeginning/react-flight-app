@@ -261,6 +261,7 @@ const FlightSearchForm = () => {
 							<p>Adults: {flightDetails.adults}</p>
 							<p>Children: {flightDetails.children}</p>
 							<p>Total Price: ${flightDetails.totalPrice}</p>
+
 							<button onClick={handleProceedClick}>Proceed</button>
 						</div>
 					)}
@@ -271,7 +272,11 @@ const FlightSearchForm = () => {
 				<PersonalDetailsForm onPurchase={handlePurchase} />
 			)}
 
-			{currentStep === "purchase" && <p>Purchase completed. Thank you!</p>}
+			{currentStep === "purchase" && (
+				<div className='finalMsgCont'>
+					<p className='finalMsg'>Purchase completed. Thank you!</p>
+				</div>
+			)}
 		</>
 	);
 };
