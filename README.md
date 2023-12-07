@@ -21,7 +21,7 @@
 
 ### Link to Live Application
 
-Experience the ReactFlight Checker App in action: [React Flight App](newviewnewbeginning.github.io)
+Experience the ReactFlight Checker App in action: [React Flight App](https://newviewnewbeginning.github.io/react-flight-app/)
 
 ### Testing Data Structure
 
