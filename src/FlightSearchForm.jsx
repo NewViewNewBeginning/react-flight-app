@@ -91,8 +91,7 @@ const FlightSearchForm = () => {
 			tripType
 		);
 		console.log(`Total price for the flight(s): ${totalPrice}`);
-		setError(""); // Clear any previous errors.
-		// Here you would typically update your component state to show the result.
+		setError(""); 
 		const flightInfo = {
 			from: from,
 			to: to,
@@ -102,10 +101,9 @@ const FlightSearchForm = () => {
 			adults: numAdults,
 			children: numChildren,
 			totalPrice: totalPrice,
-			// Add any additional details you want to display
+			
 		};
 
-		// Update the state with the flight details
 		setFlightDetails(flightInfo);
 	};
 

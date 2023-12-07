@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# ReactFlight Checker App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+### Functionality and Operation
 
-In the project directory, you can run:
+**ReactFlight Checker App** is a React-based web application that offers a streamlined way for users to search and view flight details. This app is tailored for ease of use and efficiency, catering to both casual travelers and frequent flyers. The main features include:
 
-### `npm start`
+- **Flight Search:** Users can input travel criteria like origin, destination, dates, and passenger count to find flights.
+- **Detailed Flight Information:** The app displays comprehensive flight details including times, duration, layovers, and prices.
+- **Real-time Data Display:** Utilizes real-time data rendering for displaying flight options.
+- **Responsive Design:** The UI is fully responsive, adapting seamlessly to various screen sizes and devices.
+- **User Input Validation:** Ensures the accuracy and integrity of user inputs with robust form field validation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### App Aesthetics
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Text Color:** `#242F36` for clear readability against light backgrounds.
+- **Background Color:** `#BAE4FC`, providing a calm and inviting sky-like ambiance.
+- **Call-To-Action Buttons:** `#FFAD00`, designed to stand out and guide user interaction.
+- **Font Family:** Roboto, chosen for its modern look and excellent readability across devices.
 
-### `npm test`
+### Link to Live Application
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Experience the ReactFlight Checker App in action: [React Flight App](newviewnewbeginning.github.io)
 
-### `npm run build`
+### Testing Data Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The app uses a structured data approach for testing, ensuring comprehensive coverage of various flight scenarios. The data model includes:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Airports Data
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+const airports = [
+	// Example entry
+	{ name: "Dublin", iata: "DUB", country: "Ireland" },
+	// ...additional airport entries
+];
+```
 
-### `npm run eject`
+Each airport object includes the name, IATA code, and country, providing essential details for flight searches.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Flight Schedules Data
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+const flightSchedules = [
+	// Example entry
+	{ from: "DUB", to: "MAD", days: [0, 1, 2, 3, 4, 5, 6], basePrice: 90 },
+	// ...additional flight schedule entries
+];
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Flight schedules include from and to fields with IATA codes, an array of operating days (0-6, representing Monday-Sunday), and a base price. This structure allows for dynamic testing of flight availability and pricing.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Additional Information
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Version Control: The project is managed using GIT, ensuring efficient tracking and management of changes.
+- Development Tools: Developed using Visual Studio Code (VSCode), offering a robust environment for React development.
+- Deployment: Hosted on GitHub Pages, providing a reliable and accessible platform for users to access the app.
