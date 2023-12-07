@@ -14,7 +14,7 @@
 #root {
 	min-height: 100vh;
 	width: 100vw;
-	background: url(assets/flight-bg-mobile.png) no-repeat center center/cover;
+	background: url(assets/flight-bg-mobile.webp) no-repeat center center/cover;
 	color: var(--text);
 }
 
@@ -128,7 +128,7 @@ footer {
 
 @media only screen and (min-width: 686px) {
 	#root {
-		background-image: url(assets/flight-bg.png);
+		background-image: url(assets/flight-bg.webp);
 	}
 	.half-form {
 		flex-direction: row;
